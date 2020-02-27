@@ -2,7 +2,7 @@
     <div class="sidebar">
         <router-link to="/">
             <div class="home flex">
-                <img src="../../assets/home.png" alt="">
+                <img class="image1" src="../../assets/home.png" alt="">
             </div>
         </router-link>
         <router-link to="/transfers">
@@ -32,6 +32,14 @@ export default {
         height: 20px;
         width: 20px;
         margin: 12px auto;
+    }
+    .image1 {
+        filter: grayscale(100%);   
+        -webkit-filter: grayscale(100%); 
+    }
+    .image1:hover {
+        filter: saturate(100%);   
+        -webkit-filter: saturate(100%); 
     }
     .home {
         width: 72px;

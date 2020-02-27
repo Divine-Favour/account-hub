@@ -20,32 +20,32 @@
           
         <div class="form flex w-1/2">
           <div class="formdiv">
-            <form v-on:submit="createTrans">
+            <form @submit="createAcc">
               <p class="title font-bold text-left mb-6">Transfer</p>
               <div class="number mb-6">
-                <input type="text" class="input" 
-                v-model="form.acctNum" 
+                <input type="text" class="input p-3" 
+                v-model="account.acct" 
                 placeholder="Account Number" required/>
               </div>
 
               <div class="number mb-6">
-                <input type="text" class="input" 
-                v-model="form.beneficiary" 
-                placeholder="  Name of Beneficiary" required/>
+                <input type="text" class="input p-3" 
+                v-model="account.names" @input="names"
+                placeholder="Name of Beneficiary" required/>
               </div>
 
               <div class="number mb-6">
-                <input type="text" class="input" 
-                v-model="form.amount" 
-                placeholder="  Amount to Transfer" required/>
+                <input type="text" class="input p-3" 
+                v-model="account.amount" 
+                placeholder="Amount to Transfer" required/>
               </div>
 
               <div class="number mb-16">
-                <input type="textarea" class="input1" 
-                v-model="form.description" 
-                placeholder="  Description" required/>
-              </div>
+                <textarea v-model="account.description" class="input1 p-3" name="" id="" cols="30" rows="10" placeholder="Description">
+                </textarea>
 
+              </div>
+              
               <input type="submit" value="Continue" class="button">
               
             </form>
@@ -60,7 +60,7 @@
 <script>
 // @ is an alias to /src
 import Sidebar2 from '@/components/layout/Sidebar2';
-
+import { mapActions } from 'vuex';
 
 export default {
   name: 'Transfers',
@@ -69,28 +69,30 @@ export default {
   },
   data() {
     return {
-        form: {
-        accNum: '',
-        beneficiary: '',
+        account: {
+        acct: '',
+        names: '',
+        firstName: '',
+        lastName: '',
         amount: '',
         description: ''
       }
     }
   },
-  // methods: {
-  //   createTrans: function() {
-  //     var form = this.form;
-  //     products.push({
-  //       id: Math.random().toString().split('.')[1],
-  //       accNum: form.accNum,
-  //       beneficiary: form.beneficiary,
-  //       amount: form.amount,
-  //       description: form.description
-  //     });
-  //     router.push('/');
-  //   }
-  // }
-}
+  methods: {
+    names(){
+      let fullName = this.account.names.split(' ');
+      this.account.firstName = fullName[0];
+      this.account.lastName = fullName[1];
+    },
+    ...mapActions(['addTransfer']),
+    createAcc(e) {
+      e.preventDefault();
+      this.addTransfer(this.account);
+      this.$router.push("/details?"+this.account)
+    }
+  }
+};
 </script>
 
 <style scoped>

@@ -65,7 +65,7 @@
           </tr>                 
         </thead>
         <tbody>
-          <tr class="bodyrow" v-for="account in accounts" :key="account.id">
+          <tr class="bodyrow" v-for="account in allAccounts" :key="account.id">
             <td class="td1">
               <router-link to="/details">
                 {{ account.id }}
@@ -76,10 +76,10 @@
               {{ account.description }}
               </router-link>
               </td>
-            <td class="td3">{{ account.debcre }}</td>
+            <td class="td3" v-bind:class ="AmtLabel(account.debcre)">{{ account.debcre }}</td>
             <td class="td4">{{ account.availbal }}</td>
             <td class="td5 float-right">
-              <div class="mt-4 h-7 w-20 text-center border border-green-200 text-green-500">
+              <div class="mt-4 h-7 w-20 text-center border" v-bind:class ="StatusLabel(account.status)">
                     {{ account.status }}
               </div>
               
@@ -96,12 +96,24 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: 'MainPage',
-  props: [
-    "accounts"
-  ]
-}
+  methods: {
+      AmtLabel (value) {
+      return value === '-5,000.00'
+      ? 'text-red-800'
+      : 'text-green-500'
+    },
+      StatusLabel (value) {
+      return value === 'success'
+      ? 'text-green-500 bg-white w-36  border-green-200'
+      : 'text-red-800 bg-white w-36  border-red-300'
+    },
+  },
+  computed: mapGetters(['allAccounts'])
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

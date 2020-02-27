@@ -21,6 +21,8 @@
                 <td class="tdtext pl-5">Transaction</td>
                 <td class="pl-5"></td>
               </tr>
+
+              
               <tr class="text-left">
                 <td class="h-10 text-gray-600 pl-5">Available Balance:</td>
                 <td class="h-10 pl-5">5,000</td>
@@ -47,7 +49,7 @@
               </tr>
               <tr class="text-left">
                 <td class="h-10 text-gray-600 pl-5">Description:</td>
-                <td class="h-10 pl-5">Transfer from "EBQ11223387654"</td>
+                <td class="h-10 pl-5">Transfer from BLU875634534</td>
               </tr>
             </table>
           </div>
@@ -85,21 +87,21 @@
                 <td class="tdtext">Recipient Account</td>
                 <td class="pl-5"></td>
               </tr>
-              <tr class="text-left">
+              <tr class="text-left" v-for="transfers in allTransfers" :key="transfers.id">
                 <td class="h-10 text-gray-600">Acount Number:</td>
-                <td class="h-10">032019</td>
+                <td class="h-10">{{ transfers.acct }}</td>
               </tr>
               <tr class="text-left">
                 <td class="h-10 text-gray-600">Account Type:</td>
                 <td class="h-10">Savings</td>
               </tr>
-              <tr class="text-left">
+              <tr class="text-left" v-for="transfers in allTransfers" :key="transfers.id">
                 <td class="h-10 text-gray-600">First Name:</td>
-                <td class="h-10">John</td>
+                <td class="h-10">{{ transfers.firstName }}</td>
               </tr>
-              <tr class="text-left">
+              <tr class="text-left" v-for="transfers in allTransfers" :key="transfers.id">
                 <td class="h-10 text-gray-600">Last Name:</td>
-                <td class="h-10">Doe</td>
+                <td class="h-10">{{ transfers.lastName }}</td>
               </tr>
               <tr class="text-left">
                 <td class="h-10 text-gray-600">Company Name:</td>
@@ -124,6 +126,7 @@
 
 <script>
 // @ is an alias to /src
+import { mapGetters } from "vuex";
 import Sidebar from '@/components/layout/Sidebar';
 
 
@@ -131,8 +134,27 @@ export default {
   name: 'Details',
   components: {
     Sidebar
-  }
-}
+  },
+  computed: mapGetters(["allTransfers"]),
+  // data() {
+  //   return {
+  //     account: findAccount(this.$route.params.account_id)
+  //   };
+  // },
+  // methods: {
+  //   findAccount(accountId) {
+  //     return accounts[findAccountKey(accountId)];
+  //   },
+
+  //   findProductKey (accountId) {
+  //     for (var key = 0; key < accounts.length; key++)
+  //     if (accounts[key].id == accountId){
+  //       return key;
+  //     }
+  //   }
+  // },
+  // computed: mapGetters(['allAccounts'])
+};
 </script>
 
 <style scoped>
