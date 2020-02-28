@@ -65,26 +65,26 @@
           </tr>                 
         </thead>
         <tbody>
-          <tr class="bodyrow" v-for="account in allAccounts" :key="account.id">
+          <tr class="bodyrow" v-for="transaction in allTransactions" :key="transaction.id">
             <td class="td1">
-              <router-link to="/details">
-                {{ account.id }}
+              <router-link :to="{name: 'Details', params: {transactionId: transaction.id}}">
+                {{ transaction.id }}
               </router-link>
               </td>
             <td class="td2">
               <router-link to="/details">
-              {{ account.description }}
+              {{ transaction.description }}
               </router-link>
               </td>
-            <td class="td3" v-bind:class ="AmtLabel(account.debcre)">{{ account.debcre }}</td>
-            <td class="td4">{{ account.availbal }}</td>
+            <td class="td3" v-bind:class ="AmtLabel(transaction.deb_cre)">{{ transaction.deb_cre }}</td>
+            <td class="td4">{{ transaction.availBal }}</td>
             <td class="td5 float-right">
-              <div class="mt-4 h-7 w-20 text-center border" v-bind:class ="StatusLabel(account.status)">
-                    {{ account.status }}
+              <div class="mt-4 h-7 w-20 text-center border" v-bind:class ="StatusLabel(transaction.status)">
+                    {{ transaction.status }}
               </div>
               
               </td>
-            <td class="td6">{{ account.date }}</td>
+            <td class="td6">{{ transaction.date }}</td>
           </tr>
         </tbody>
 
@@ -112,7 +112,7 @@ export default {
       : 'text-red-800 bg-white w-36  border-red-300'
     },
   },
-  computed: mapGetters(['allAccounts'])
+  computed: mapGetters(["allTransactions"])
 };
 </script>
 

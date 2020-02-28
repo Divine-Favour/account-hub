@@ -1,115 +1,58 @@
 const state = {
-    accounts: [
-        {
-            id: 1,
-            description: "Transfer from CDN001654321",
-            debcre: "5,000.00",
-            availbal: "21,418.00",
+    transactions: [
+          {
+            id: "1",
+            description: "Transfer to divine",
+            deb_cre: "5000",
+            availBal: "21000",
             status: "success",
-            date: "17-02-2020",
+            date: "21-03-2019",
+            acctNo: "0122666808",
+            acctType: "savings",
+            firstName: "Divine",
+            lastName: "Favour",
+            company: "Lopworks",
+            amount: "4000",
           },
           {
-            id: 2,
-            description: "Transfer from GHT009876534",
-            debcre: "-5,000.00",
-            availbal: "21,418.00",
-            status: "failed",
-            date: "17-02-2020",
-            acct: "",
-            fullname: "",
-            amount: ""
-          },
-          {
-            id: 3,
-            description: "Transfer from KLO00989675234",
-            debcre: "-5,000.00",
-            availbal: "21,418.00",
-            status: "failed",
-            date: "17-02-2020",
-            acct: "",
-            fullname: "",
-            amount: ""
-          },
-          {
-            id: 4,
-            description: "Transfer from FBH234765890",
-            debcre: "5,000.00",
-            availbal: "21,418.00",
+            id: "2",
+            description: "Transfer to favour",
+            deb_cre: "6000",
+            availBal: "27000",
             status: "success",
-            date: "17-02-2020",
-            acct: "",
-            fullname: "",
-            amount: ""
+            date: "11-03-2019",
+            acctNo: "0122666808",
+            acctType: "savings",
+            firstName: "Ayo",
+            lastName: "Blue",
+            company: "Lopworks",
+            amount: "9000",
           },
-          {
-            id: 5,
-            description: "Transfer from CDN001654321",
-            debcre: "5,000.00",
-            availbal: "21,418.00",
-            status: "success",
-            date: "17-02-2020",
-            acct: "",
-            fullname: "",
-            amount: ""
-          },
-          {
-            id: 6,
-            description: "Transfer from GHT009876534",
-            debcre: "-5,000.00",
-            availbal: "21,418.00",
-            status: "failed",
-            date: "17-02-2020",
-            acct: "",
-            fullname: "",
-            amount: ""
-          },
-          {
-            id: 7,
-            description: "Transfer from KLO00989675234",
-            debcre: "-5,000.00",
-            availbal: "21,418.00",
-            status: "failed",
-            date: "17-02-2020",
-            acct: "",
-            fullname: "",
-            amount: ""
-          },
-          {
-            id: 8,
-            description: "Transfer from FBH234765890",
-            debcre: "5,000.00",
-            availbal: "21,418.00",
-            status: "success",
-            date: "17-02-2020",
-            acct: "",
-            fullname: "",
-            amount: ""
-          }
     ],
-    transfers: [
-      {
-        id: 1,
-        acct: "0122666808",
-        firstName: "Divine",
-        lastName: "Favour",
-        amount: "4,000.00"
-      }
-    ]
+    account: {
+      acctNo: "012",
+      acctType: "Savings",
+      firstName: "Divine",
+      lastName: "Favour",
+      company: "Lopworks",
+      availBal: "500000"
+    }
 };
 
 const getters = {
-    allAccounts: state => state.accounts,
-    allTransfers: state => state.transfers
+    allTransactions: state => state.transactions,
+    senderAccount: state => state.account
+    // allTransfers: state => state.transfers
 };
 
 const actions = {
-  addTransfer: (context, transfers) => {
-    context.commit('newTransfer', transfers);
+  addTransaction: (context, transactions) => {
+    context.commit('newTransaction', transactions);
   } 
 };
 
 const mutations = {
-    newTransfer: (state, account) => state.transfers.splice(0,1,account)
+    newTransaction: (state, transaction) => state.transactions.push(transaction)
 };
 
 export default {

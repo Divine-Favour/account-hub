@@ -23,25 +23,25 @@
             <form @submit="createAcc">
               <p class="title font-bold text-left mb-6">Transfer</p>
               <div class="number mb-6">
-                <input type="text" class="input p-3" 
-                v-model="account.acct" 
+                <input type="number" class="input p-3" 
+                v-model="transaction.acctNo" 
                 placeholder="Account Number" required/>
               </div>
 
               <div class="number mb-6">
                 <input type="text" class="input p-3" 
-                v-model="account.names" @input="names"
+                v-model="name" @input="names"
                 placeholder="Name of Beneficiary" required/>
               </div>
 
               <div class="number mb-6">
                 <input type="text" class="input p-3" 
-                v-model="account.amount" 
+                v-model="transaction.amount" 
                 placeholder="Amount to Transfer" required/>
               </div>
 
               <div class="number mb-16">
-                <textarea v-model="account.description" class="input1 p-3" name="" id="" cols="30" rows="10" placeholder="Description">
+                <textarea v-model="transaction.description" class="input1 p-3" name="" id="" cols="30" rows="10" placeholder="Description">
                 </textarea>
 
               </div>
@@ -60,6 +60,7 @@
 <script>
 // @ is an alias to /src
 import Sidebar2 from '@/components/layout/Sidebar2';
+import { mapGetters } from 'vuex';
 import { mapActions } from 'vuex';
 
 export default {
@@ -69,33 +70,50 @@ export default {
   },
   data() {
     return {
-        account: {
-        acct: '',
-        names: '',
-        firstName: '',
-        lastName: '',
-        amount: '',
-        description: ''
-      }
+        transaction: {
+            id: "",
+            description: "",
+            deb_cre: "Debit",
+            availBal: "",
+            status: "success",
+            date: new Date(Date.now()).toDateString(),
+            acctNo: "",
+            acctType: "savings",
+            firstName: "",
+            lastName: "",
+            company: "Lopworks",
+            amount: "",
+      },
+      name: ""
     }
   },
   methods: {
     names(){
-      let fullName = this.account.names.split(' ');
-      this.account.firstName = fullName[0];
-      this.account.lastName = fullName[1];
+      let fullName = this.name.split(' ');
+      this.transaction.firstName = fullName[0];
+      this.transaction.lastName = fullName[1];
     },
-    ...mapActions(['addTransfer']),
+    addTransaction(){
+
+    },
+    ...mapActions(['addTransaction']),
     createAcc(e) {
       e.preventDefault();
-      this.addTransfer(this.account);
-      this.$router.push("/details?"+this.account)
+      this.transaction.id = this.allTransactions.length + 1;
+      this.transaction.availBal = this.senderAccount.availBal
+      this.addTransaction(this.transaction)
+      console.log(this.transaction)
+     this.$router.push("/details/"+this.transaction.id)
     }
+  },
+  computed: {
+    ...mapGetters(["allTransactions", "senderAccount"]),
   }
 };
 </script>
 
 <style scoped>
+
   .mainmain {
     height: 677.5px;
     width: 828px;
@@ -168,3 +186,7 @@ export default {
     cursor: pointer;
   }
 </style>
+
+
+// this.allTransactions.length + 1
+// this.senderAccount.availBal

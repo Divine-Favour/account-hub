@@ -25,11 +25,12 @@
               
               <tr class="text-left">
                 <td class="h-10 text-gray-600 pl-5">Available Balance:</td>
-                <td class="h-10 pl-5">5,000</td>
+                <td 
+                 class="h-10 pl-5">{{ transactions.availBal }}</td>
               </tr>
               <tr class="text-left">
                 <td class="h-10 text-gray-600 pl-5">Date:</td>
-                <td class="h-10 pl-5">19-02-2020 - 10:00pm</td>
+                <td class="h-10 pl-5">{{ transactions.date }}</td>
               </tr>
               <tr class="text-left">
                 <td class="h-10 text-gray-600 pl-5">Status:</td>
@@ -45,11 +46,11 @@
               </tr>
               <tr class="text-left">
                 <td class="h-10 text-gray-600 pl-5">Amount:</td>
-                <td class="h-10 pl-5">&#8358; 21,418.00</td>
+                <td class="h-10 pl-5">{{ transactions.amount }}</td>
               </tr>
               <tr class="text-left">
                 <td class="h-10 text-gray-600 pl-5">Description:</td>
-                <td class="h-10 pl-5">Transfer from BLU875634534</td>
+                <td class="h-10 pl-5">{{ transactions.description }}</td>
               </tr>
             </table>
           </div>
@@ -87,21 +88,21 @@
                 <td class="tdtext">Recipient Account</td>
                 <td class="pl-5"></td>
               </tr>
-              <tr class="text-left" v-for="transfers in allTransfers" :key="transfers.id">
-                <td class="h-10 text-gray-600">Acount Number:</td>
-                <td class="h-10">{{ transfers.acct }}</td>
+              <tr class="text-left" >
+                <td class="h-10 text-gray-600">Account Number:</td>
+                <td class="h-10">{{ transactions.acctNo }}</td>
               </tr>
               <tr class="text-left">
                 <td class="h-10 text-gray-600">Account Type:</td>
                 <td class="h-10">Savings</td>
               </tr>
-              <tr class="text-left" v-for="transfers in allTransfers" :key="transfers.id">
+              <tr class="text-left" >
                 <td class="h-10 text-gray-600">First Name:</td>
-                <td class="h-10">{{ transfers.firstName }}</td>
+                <td class="h-10">{{ transactions.firstName }}</td>
               </tr>
-              <tr class="text-left" v-for="transfers in allTransfers" :key="transfers.id">
+              <tr class="text-left" >
                 <td class="h-10 text-gray-600">Last Name:</td>
-                <td class="h-10">{{ transfers.lastName }}</td>
+                <td class="h-10">{{ transactions.lastName }}</td>
               </tr>
               <tr class="text-left">
                 <td class="h-10 text-gray-600">Company Name:</td>
@@ -135,7 +136,13 @@ export default {
   components: {
     Sidebar
   },
-  computed: mapGetters(["allTransfers"]),
+  computed: {
+    ...mapGetters(["allTransactions", "senderAccount"]),
+    transactions(){
+      return this.allTransactions.find((transaction)=>transaction.id == this.$route.params.transactionId)
+    }
+    }
+    }
   // data() {
   //   return {
   //     account: findAccount(this.$route.params.account_id)
@@ -154,7 +161,6 @@ export default {
   //   }
   // },
   // computed: mapGetters(['allAccounts'])
-};
 </script>
 
 <style scoped>
